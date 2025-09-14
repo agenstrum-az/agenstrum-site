@@ -131,3 +131,6 @@ input:focus, textarea:focus{outline:2px solid var(--ring); border-color:var(--ac
 
 .will-reveal{opacity:.001; transform: translateY(10px); transition: all .5s ease}
 .reveal{opacity:1; transform:none}
+
+.form .btn { justify-self:start; width:auto; } /* stop grid stretch */
+.btn-sm { padding:.6rem 1rem; font-size:1rem; } /* smaller button */
