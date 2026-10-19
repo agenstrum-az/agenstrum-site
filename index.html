@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AGENSTRUM Labs — Agentic AI for Supply Chain</title>
-    <meta name="description" content="AGENSTRUM Labs builds Agentic AI applications for supply chain: purchasing, multi-echelon planning, inventory allocation, risk management, network optimization, and performance management." />
+    <title data-i18n="meta.title">AGENSTRUM Labs — Agentic AI for Supply Chain</title>
+    <meta name="description" data-i18n-content="meta.desc" content="AGENSTRUM Labs builds Agentic AI applications for supply chain: purchasing, multi-echelon planning, inventory allocation, risk management, network optimization, and performance management." />
     <meta name="theme-color" content="#01265A" />
     <meta property="og:title" content="AGENSTRUM Labs — Agentic AI for Supply Chain" />
     <meta property="og:description" content="Agentic AI for purchasing, demand planning, inventory, risk, and network optimization." />
@@ -13,37 +13,62 @@
     <meta property="og:image" content="https://www.agenstrum.com/assets/logo.png" />
     <link rel="icon" type="image/png" href="assets/emblem.png" />
     <script>
-      // Apply a saved theme choice before first paint to avoid a flash
-      try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+      // Apply saved theme and language before first paint to avoid a flash
+      try {
+        var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+      // Hide copy until i18n.js swaps in a non-English language (it always clears this flag)
+      (function () {
+        var l = (location.search.match(/[?&]lang=([a-z]{2})/) || [])[1];
+        if (!l) { try { l = localStorage.getItem('lang'); } catch (e) {} }
+        if (!l) l = String((navigator.languages && navigator.languages[0]) || navigator.language || 'en').slice(0, 2).toLowerCase();
+        if (l === 'es' || l === 'pt' || l === 'it') document.documentElement.setAttribute('data-i18n-pending', '');
+        setTimeout(function () { document.documentElement.removeAttribute('data-i18n-pending'); }, 1500);
+      })();
     </script>
+    <link rel="preload" href="assets/fonts/AgenstrumLabsPilot-Regular.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Michroma&family=Saira:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Saira:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="skip-link" href="#main" data-i18n="ui.skip">Skip to content</a>
 
     <header class="site-header">
       <div class="container nav">
-        <a class="brand" href="#main" aria-label="AGENSTRUM Labs home">
+        <a class="brand" href="#main" aria-label="AGENSTRUM Labs">
           <img src="assets/emblem.png" alt="" class="logo" width="40" height="40" />
           <span class="wordmark">AGENSTRUM<span class="thin">LABS</span></span>
         </a>
         <div class="nav-actions">
           <nav class="menu" id="menu" aria-label="Main navigation">
-            <a href="#solutions">Solutions</a>
-            <a href="#approach">Approach</a>
-            <a href="#hve">HVE</a>
-            <a href="#stack">Tech</a>
-            <a href="#about">About</a>
-            <a href="#contact" class="btn btn-outline">Contact</a>
+            <a href="#solutions" data-i18n="nav.solutions">Solutions</a>
+            <a href="#approach" data-i18n="nav.approach">Approach</a>
+            <a href="#hve" data-i18n="nav.hve">HVE</a>
+            <a href="#stack" data-i18n="nav.tech">Tech</a>
+            <a href="#about" data-i18n="nav.about">About</a>
+            <a href="#contact" class="btn btn-outline" data-i18n="nav.contact">Contact</a>
           </nav>
-          <button class="theme-toggle" type="button" aria-label="Toggle color theme">
+          <div class="lang">
+            <button class="icon-btn lang-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="lang-menu" data-i18n-aria="ui.lang" aria-label="Change language">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+              <span class="lang-code">EN</span>
+            </button>
+            <ul class="lang-menu" id="lang-menu" role="menu" hidden>
+              <li role="none"><button type="button" role="menuitemradio" data-lang="en" lang="en"><span>EN</span>English</button></li>
+              <li role="none"><button type="button" role="menuitemradio" data-lang="es" lang="es"><span>ES</span>Español</button></li>
+              <li role="none"><button type="button" role="menuitemradio" data-lang="pt" lang="pt"><span>PT</span>Português</button></li>
+              <li role="none"><button type="button" role="menuitemradio" data-lang="it" lang="it"><span>IT</span>Italiano</button></li>
+            </ul>
+          </div>
+          <button class="icon-btn theme-toggle" type="button" data-i18n-aria="ui.theme" aria-label="Toggle color theme">
             <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
             <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
           </button>
-          <button class="menu-toggle" type="button" aria-label="Open menu" aria-controls="menu" aria-expanded="false">☰</button>
+          <button class="icon-btn menu-toggle" type="button" data-i18n-aria="ui.menu" aria-label="Open menu" aria-controls="menu" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          </button>
         </div>
       </div>
     </header>
@@ -53,86 +78,99 @@
       <section class="hero">
         <div class="container hero-inner">
           <div class="hero-copy">
-            <p class="status"><span class="pulse" aria-hidden="true"></span>Agents planning · negotiating · executing</p>
-            <h1>Agentic AI for resilient, efficient supply chains.</h1>
-            <p>We design autonomous, goal-driven AI agents that plan, negotiate, and execute across your supply network — cutting costs, boosting service, and turning data into decisions.</p>
+            <p class="status"><span class="pulse" aria-hidden="true"></span><span data-i18n="hero.status">Agents planning · negotiating · executing</span></p>
+            <h1 data-i18n="hero.title">Agentic AI for resilient, efficient supply chains.</h1>
+            <p class="lead" data-i18n="hero.lead">We design autonomous, goal-driven AI agents that plan, negotiate, and execute across your supply network — cutting costs, boosting service, and turning data into decisions.</p>
             <div class="cta">
-              <a href="#contact" class="btn btn-primary">Request a demo</a>
-              <a href="#solutions" class="btn btn-ghost">Explore solutions</a>
+              <a href="#contact" class="btn btn-primary" data-i18n="hero.cta1">Request a demo</a>
+              <a href="#solutions" class="btn btn-ghost" data-i18n="hero.cta2">Explore solutions</a>
             </div>
-            <ul class="metrics">
-              <li><strong>10–30%</strong><span>Inventory reduction</span></li>
-              <li><strong>95–99%</strong><span>Target service levels</span></li>
-              <li><strong>Minutes</strong><span>to actionable insights</span></li>
-            </ul>
           </div>
           <div class="hero-art" aria-hidden="true">
+            <canvas class="neural"></canvas>
+            <div class="orbit"><span class="orbit-dot"></span></div>
             <div class="orbital">
               <img src="assets/emblem.png" alt="" />
             </div>
           </div>
+        </div>
+        <div class="container">
+          <ul class="metrics">
+            <li><strong>10–30%</strong><span data-i18n="m1">Inventory reduction</span></li>
+            <li><strong>95–99%</strong><span data-i18n="m2">Target service levels</span></li>
+            <li><strong data-i18n="m3.v">Minutes</strong><span data-i18n="m3">to actionable insights</span></li>
+            <li><strong data-i18n="m4.v">4 weeks</strong><span data-i18n="m4">to a working pilot</span></li>
+          </ul>
         </div>
       </section>
 
       <!-- Solutions -->
       <section id="solutions" class="section alt">
         <div class="container">
-          <p class="eyebrow">Solutions</p>
-          <h2 class="section-title">Modular agentic apps</h2>
-          <p class="section-subtitle">Agentic AI apps that work together or stand alone.</p>
+          <header class="section-head">
+            <p class="eyebrow"><span>01</span><span data-i18n="sol.eyebrow">Solutions</span></p>
+            <h2 class="section-title" data-i18n="sol.title">Modular agentic apps</h2>
+            <p class="section-subtitle" data-i18n="sol.sub">Agentic AI apps that work together or stand alone.</p>
+          </header>
           <div class="grid cards">
             <article class="card">
-              <h3>Smart Purchasing</h3>
-              <p>Autonomous buying agents place, split, and track POs using price/lead-time trade-offs, MOQ, and vendor scorecards.</p>
+              <span class="card-idx">A1</span>
+              <h3 data-i18n="s1.t">Smart Purchasing</h3>
+              <p data-i18n="s1.d">Autonomous buying agents place, split, and track POs using price/lead-time trade-offs, MOQ, and vendor scorecards.</p>
               <ul>
-                <li>Dynamic reorder &amp; PO splitting</li>
-                <li>Vendor negotiation copilots</li>
-                <li>Budget &amp; cash-flow guardrails</li>
+                <li data-i18n="s1.l1">Dynamic reorder &amp; PO splitting</li>
+                <li data-i18n="s1.l2">Vendor negotiation copilots</li>
+                <li data-i18n="s1.l3">Budget &amp; cash-flow guardrails</li>
               </ul>
             </article>
             <article class="card">
-              <h3>Multi-Echelon Planning</h3>
-              <p>Agents coordinate DCs, hubs, and stores to meet service targets at minimum total cost with uncertainty-aware forecasts.</p>
+              <span class="card-idx">A2</span>
+              <h3 data-i18n="s2.t">Multi-Echelon Planning</h3>
+              <p data-i18n="s2.d">Agents coordinate DCs, hubs, and stores to meet service targets at minimum total cost with uncertainty-aware forecasts.</p>
               <ul>
-                <li>MEIO with ABCD-XYZ policies</li>
-                <li>Service tiers by item class</li>
-                <li>What-if scenarios &amp; simulations</li>
+                <li data-i18n="s2.l1">MEIO with ABCD-XYZ policies</li>
+                <li data-i18n="s2.l2">Service tiers by item class</li>
+                <li data-i18n="s2.l3">What-if scenarios &amp; simulations</li>
               </ul>
             </article>
             <article class="card">
-              <h3>Inventory Allocation</h3>
-              <p>Real-time allocation agents rebalance stock using demand sensing, substitution rules, and priority constraints.</p>
+              <span class="card-idx">A3</span>
+              <h3 data-i18n="s3.t">Inventory Allocation</h3>
+              <p data-i18n="s3.d">Real-time allocation agents rebalance stock using demand sensing, substitution rules, and priority constraints.</p>
               <ul>
-                <li>Backorder mitigation</li>
-                <li>Cross-dock &amp; transship logic</li>
-                <li>Shelf-life &amp; expiry aware</li>
+                <li data-i18n="s3.l1">Backorder mitigation</li>
+                <li data-i18n="s3.l2">Cross-dock &amp; transship logic</li>
+                <li data-i18n="s3.l3">Shelf-life &amp; expiry aware</li>
               </ul>
             </article>
             <article class="card">
-              <h3>Risk &amp; Resilience</h3>
-              <p>Continuously scans disruptions (suppliers, logistics, weather) and triggers contingency playbooks.</p>
+              <span class="card-idx">A4</span>
+              <h3 data-i18n="s4.t">Risk &amp; Resilience</h3>
+              <p data-i18n="s4.d">Continuously scans disruptions (suppliers, logistics, weather) and triggers contingency playbooks.</p>
               <ul>
-                <li>Supplier risk scores</li>
-                <li>Route &amp; capacity re-plans</li>
-                <li>ESG &amp; compliance checks</li>
+                <li data-i18n="s4.l1">Supplier risk scores</li>
+                <li data-i18n="s4.l2">Route &amp; capacity re-plans</li>
+                <li data-i18n="s4.l3">ESG &amp; compliance checks</li>
               </ul>
             </article>
             <article class="card">
-              <h3>Network Optimization</h3>
-              <p>Design and continuously optimize your network for cost-to-serve, CO<sub>2</sub>, and service reliability.</p>
+              <span class="card-idx">A5</span>
+              <h3 data-i18n="s5.t">Network Optimization</h3>
+              <p data-i18n="s5.d">Design and continuously optimize your network for cost-to-serve, CO<sub>2</sub>, and service reliability.</p>
               <ul>
-                <li>Facility location &amp; flows</li>
-                <li>Mode &amp; carrier selection</li>
-                <li>Digital twins for decisions</li>
+                <li data-i18n="s5.l1">Facility location &amp; flows</li>
+                <li data-i18n="s5.l2">Mode &amp; carrier selection</li>
+                <li data-i18n="s5.l3">Digital twins for decisions</li>
               </ul>
             </article>
             <article class="card">
-              <h3>Performance Management</h3>
-              <p>Self-healing KPIs: agents detect anomalies, explain root causes, and propose fixes you can approve or auto-apply.</p>
+              <span class="card-idx">A6</span>
+              <h3 data-i18n="s6.t">Performance Management</h3>
+              <p data-i18n="s6.d">Self-healing KPIs: agents detect anomalies, explain root causes, and propose fixes you can approve or auto-apply.</p>
               <ul>
-                <li>Service, inventory, cost KPIs</li>
-                <li>Alert → insight → action loop</li>
-                <li>Human-in-the-loop controls</li>
+                <li data-i18n="s6.l1">Service, inventory, cost KPIs</li>
+                <li data-i18n="s6.l2">Alert → insight → action loop</li>
+                <li data-i18n="s6.l3">Human-in-the-loop controls</li>
               </ul>
             </article>
           </div>
@@ -142,24 +180,26 @@
       <!-- Approach -->
       <section id="approach" class="section">
         <div class="container">
-          <p class="eyebrow">Approach</p>
-          <h2 class="section-title">How we build agents</h2>
-          <p class="section-subtitle">Deterministic where it matters, generative where it helps.</p>
+          <header class="section-head">
+            <p class="eyebrow"><span>02</span><span data-i18n="app.eyebrow">Approach</span></p>
+            <h2 class="section-title" data-i18n="app.title">How we build agents</h2>
+            <p class="section-subtitle" data-i18n="app.sub">Deterministic where it matters, generative where it helps.</p>
+          </header>
           <div class="grid three">
             <div class="pillar">
               <span class="idx">01</span>
-              <h3>Agentic by Design</h3>
-              <p>Task-oriented agents with clear goals, tools, memory, and guardrails.</p>
+              <h3 data-i18n="p1.t">Agentic by Design</h3>
+              <p data-i18n="p1.d">Task-oriented agents with clear goals, tools, memory, and guardrails.</p>
             </div>
             <div class="pillar">
               <span class="idx">02</span>
-              <h3>Composable</h3>
-              <p>Micro-agents for forecasting, policy, optimization, and execution — orchestrated via events and APIs.</p>
+              <h3 data-i18n="p2.t">Composable</h3>
+              <p data-i18n="p2.d">Micro-agents for forecasting, policy, optimization, and execution — orchestrated via events and APIs.</p>
             </div>
             <div class="pillar">
               <span class="idx">03</span>
-              <h3>Enterprise-Grade</h3>
-              <p>Security, governance, audit trails, and RBAC. Cloud-native and vendor-agnostic (Azure, AWS, Databricks, Snowflake).</p>
+              <h3 data-i18n="p3.t">Enterprise-Grade</h3>
+              <p data-i18n="p3.d">Security, governance, audit trails, and RBAC. Cloud-native and vendor-agnostic (Azure, AWS, Databricks, Snowflake).</p>
             </div>
           </div>
         </div>
@@ -168,100 +208,104 @@
       <!-- Hypervelocity Engineering -->
       <section id="hve" class="section band">
         <div class="container">
-          <p class="eyebrow">Hypervelocity Engineering</p>
-          <h2 class="section-title">Engineered with HVE Core</h2>
-          <p class="section-subtitle">
-            We deliver with <strong>Hypervelocity Engineering (HVE)</strong>, using HVE Core, Microsoft’s open-source agentic SDLC framework for context management, governance, and shift-left engineering.
-            Every pilot runs through the same disciplined loop, so speed never costs you traceability. <strong>AI carries the rules, humans keep the judgment.</strong>
-          </p>
+          <header class="section-head">
+            <p class="eyebrow"><span>03</span><span>Hypervelocity Engineering</span></p>
+            <h2 class="section-title" data-i18n="hve.title">Engineered with HVE Core</h2>
+            <p class="section-subtitle" data-i18n="hve.sub">
+              We deliver with <strong>Hypervelocity Engineering (HVE)</strong>, using HVE Core, Microsoft’s open-source agentic SDLC framework for context management, governance, and shift-left engineering.
+              Every pilot runs through the same disciplined loop, so speed never costs you traceability. <strong>AI carries the rules, humans keep the judgment.</strong>
+            </p>
+          </header>
 
-          <div class="grid four rpi">
-            <div class="step">
+          <ol class="rpi">
+            <li class="step">
               <span class="tag">rpi-research</span>
-              <h3>Research</h3>
-              <p>Agents gather evidence from your data, systems, and constraints before any decision is made.</p>
-            </div>
-            <div class="step">
+              <h3 data-i18n="r1.t">Research</h3>
+              <p data-i18n="r1.d">Agents gather evidence from your data, systems, and constraints before any decision is made.</p>
+            </li>
+            <li class="step">
               <span class="tag">rpi-plan</span>
-              <h3>Plan</h3>
-              <p>Findings become an explicit, reviewable plan that your planners approve before work begins.</p>
-            </div>
-            <div class="step">
+              <h3 data-i18n="r2.t">Plan</h3>
+              <p data-i18n="r2.d">Findings become an explicit, reviewable plan that your planners approve before work begins.</p>
+            </li>
+            <li class="step">
               <span class="tag">rpi-implement</span>
-              <h3>Implement</h3>
-              <p>Agents execute the approved plan step by step, guided by coding standards and guardrails.</p>
-            </div>
-            <div class="step">
+              <h3 data-i18n="r3.t">Implement</h3>
+              <p data-i18n="r3.d">Agents execute the approved plan step by step, guided by coding standards and guardrails.</p>
+            </li>
+            <li class="step">
               <span class="tag">rpi-review</span>
-              <h3>Review</h3>
-              <p>Results are checked against the plan, with durable evidence and handoff artifacts at every step.</p>
-            </div>
-          </div>
+              <h3 data-i18n="r4.t">Review</h3>
+              <p data-i18n="r4.d">Results are checked against the plan, with durable evidence and handoff artifacts at every step.</p>
+            </li>
+          </ol>
 
           <div class="hve-meta">
             <div>
-              <h4>Across the full lifecycle</h4>
+              <h4 data-i18n="hve.lifecycle">Across the full lifecycle</h4>
               <ol class="chips">
-                <li>Setup</li>
-                <li>Discovery</li>
-                <li>Product Definition</li>
-                <li>Decomposition</li>
-                <li>Sprint Planning</li>
-                <li>Implementation</li>
-                <li>Review</li>
-                <li>Delivery</li>
-                <li>Operations</li>
+                <li data-i18n="st1">Setup</li>
+                <li data-i18n="st2">Discovery</li>
+                <li data-i18n="st3">Product Definition</li>
+                <li data-i18n="st4">Decomposition</li>
+                <li data-i18n="st5">Sprint Planning</li>
+                <li data-i18n="st6">Implementation</li>
+                <li data-i18n="st7">Review</li>
+                <li data-i18n="st8">Delivery</li>
+                <li data-i18n="st9">Operations</li>
               </ol>
             </div>
             <div>
-              <h4>What HVE Core provides</h4>
+              <h4 data-i18n="hve.provides">What HVE Core provides</h4>
               <ul class="ships">
-                <li><b>Agents</b><span>Specialized for research, planning, implementation, and review</span></li>
-                <li><b>Instructions</b><span>Coding standards applied automatically</span></li>
-                <li><b>Skills</b><span>Reusable workflows and tool capabilities</span></li>
-                <li><b>Role guides</b><span>For engineers, TPMs, architects, data scientists, SREs, and more</span></li>
+                <li><b data-i18n="sh1.t">Agents</b><span data-i18n="sh1.d">Specialized for research, planning, implementation, and review</span></li>
+                <li><b data-i18n="sh2.t">Instructions</b><span data-i18n="sh2.d">Coding standards applied automatically</span></li>
+                <li><b data-i18n="sh3.t">Skills</b><span data-i18n="sh3.d">Reusable workflows and tool capabilities</span></li>
+                <li><b data-i18n="sh4.t">Role guides</b><span data-i18n="sh4.d">For engineers, TPMs, architects, data scientists, SREs, and more</span></li>
               </ul>
             </div>
           </div>
 
           <div class="hve-links">
-            <a class="btn btn-primary" href="https://microsoft.github.io/hve-core/docs/hve-guide/" target="_blank" rel="noopener">Read the HVE Guide</a>
-            <a class="btn btn-ghost" href="https://github.com/microsoft/hve-core" target="_blank" rel="noopener">microsoft/hve-core on GitHub</a>
+            <a class="btn btn-primary" href="https://microsoft.github.io/hve-core/docs/hve-guide/" target="_blank" rel="noopener" data-i18n="hve.cta1">Read the HVE Guide</a>
+            <a class="btn btn-ghost" href="https://github.com/microsoft/hve-core" target="_blank" rel="noopener" data-i18n="hve.cta2">microsoft/hve-core on GitHub</a>
           </div>
-          <p class="note">HVE Core is an open-source project by Microsoft, released under the MIT License.</p>
+          <p class="note" data-i18n="hve.note">HVE Core is an open-source project by Microsoft, released under the MIT License.</p>
         </div>
       </section>
 
       <!-- Tech Stack -->
       <section id="stack" class="section">
         <div class="container">
-          <p class="eyebrow">Technology</p>
-          <h2 class="section-title">Technology stack</h2>
-          <p class="section-subtitle">From lakehouse to human-in-the-loop experiences.</p>
+          <header class="section-head">
+            <p class="eyebrow"><span>04</span><span data-i18n="tech.eyebrow">Technology</span></p>
+            <h2 class="section-title" data-i18n="tech.title">Technology stack</h2>
+            <p class="section-subtitle" data-i18n="tech.sub">From lakehouse to human-in-the-loop experiences.</p>
+          </header>
           <div class="grid tech">
             <div class="tech-card">
-              <h4>Data</h4>
-              <p>Delta Lake • Lakehouse • Streaming ETL • Semantic models</p>
+              <h4 data-i18n="t1.h">Data</h4>
+              <p data-i18n="t1.p">Delta Lake • Lakehouse • Streaming ETL • Semantic models</p>
             </div>
             <div class="tech-card">
-              <h4>Intelligence</h4>
-              <p>Time-series ML • Bayesian demand • RL policies • OR solvers</p>
+              <h4 data-i18n="t2.h">Intelligence</h4>
+              <p data-i18n="t2.p">Time-series ML • Bayesian demand • RL policies • OR solvers</p>
             </div>
             <div class="tech-card">
-              <h4>Agents</h4>
-              <p>Planning &amp; execution tools • RAG over supply data • Memory &amp; skills</p>
+              <h4 data-i18n="t3.h">Agents</h4>
+              <p data-i18n="t3.p">Planning &amp; execution tools • RAG over supply data • Memory &amp; skills</p>
             </div>
             <div class="tech-card">
-              <h4>Experience</h4>
-              <p>Copilot UX • Chat + apps • Dashboards • Human-in-the-loop</p>
+              <h4 data-i18n="t4.h">Experience</h4>
+              <p data-i18n="t4.p">Copilot UX • Chat + apps • Dashboards • Human-in-the-loop</p>
             </div>
             <div class="tech-card">
-              <h4>Ops</h4>
-              <p>MLOps • Prompt/AgentOps • HVE Core • CI/CD • Observability &amp; safety</p>
+              <h4 data-i18n="t5.h">Ops</h4>
+              <p data-i18n="t5.p">MLOps • Prompt/AgentOps • HVE Core • CI/CD • Observability &amp; safety</p>
             </div>
             <div class="tech-card">
-              <h4>Integrations</h4>
-              <p>ERP/WMS/TMS • EDI/API • Market &amp; risk feeds • IoT/telemetry</p>
+              <h4 data-i18n="t6.h">Integrations</h4>
+              <p data-i18n="t6.p">ERP/WMS/TMS • EDI/API • Market &amp; risk feeds • IoT/telemetry</p>
             </div>
           </div>
         </div>
@@ -271,17 +315,17 @@
       <section id="about" class="section alt">
         <div class="container about">
           <div class="about-copy">
-            <p class="eyebrow">About</p>
-            <h2 class="section-title">About AGENSTRUM Labs</h2>
-            <p>AGENSTRUM Labs is a focused team of supply-chain engineers, data scientists, and designers. We’ve blended operations research and modern Agentic AI to deliver tangible outcomes — less inventory, higher service, faster decisions.</p>
+            <p class="eyebrow"><span>05</span><span data-i18n="about.eyebrow">About</span></p>
+            <h2 class="section-title" data-i18n="about.title">About AGENSTRUM Labs</h2>
+            <p data-i18n="about.body">AGENSTRUM Labs is a focused team of supply-chain engineers, data scientists, and designers. We’ve blended operations research and modern Agentic AI to deliver tangible outcomes — less inventory, higher service, faster decisions.</p>
             <ul class="ticks">
-              <li>Rapid 4-week pilots</li>
-              <li>Security &amp; governance first</li>
-              <li>Co-create with your planners</li>
+              <li data-i18n="tick1">Rapid 4-week pilots</li>
+              <li data-i18n="tick2">Security &amp; governance first</li>
+              <li data-i18n="tick3">Co-create with your planners</li>
             </ul>
           </div>
           <div class="about-art">
-            <div class="badge">PROOF OF VALUE</div>
+            <div class="badge"><span data-i18n="about.badge">Proof of Value</span></div>
           </div>
         </div>
       </section>
@@ -289,41 +333,44 @@
       <!-- Contact -->
       <section id="contact" class="section">
         <div class="container contact">
-          <p class="eyebrow">Contact</p>
-          <h2 class="section-title">Let’s talk</h2>
-          <p class="section-subtitle">Tell us about your supply‑chain challenges. We’ll get back within one business day.</p>
-          <p class="form-status" id="form-status" hidden>Thanks, your message was sent. We’ll be in touch shortly.</p>
+          <div class="contact-intro">
+            <p class="eyebrow"><span>06</span><span data-i18n="contact.eyebrow">Contact</span></p>
+            <h2 class="section-title" data-i18n="contact.title">Let’s talk</h2>
+            <p class="section-subtitle" data-i18n="contact.sub">Tell us about your supply‑chain challenges. We’ll get back within one business day.</p>
+            <p class="form-status" id="form-status" hidden data-i18n="contact.sent">Thanks, your message was sent. We’ll be in touch shortly.</p>
+          </div>
           <form class="form" id="contact-form" action="https://formsubmit.co/sales@agenstrum.com" method="POST">
             <input type="hidden" name="_subject"  value="AGENSTRUM Labs — New website inquiry" />
             <input type="hidden" name="_template" value="table" />
             <input type="hidden" name="_captcha"  value="false" />
             <input type="hidden" name="_next"     value="https://www.agenstrum.com/?sent#contact" />
+            <input type="hidden" name="language" id="form-lang" value="en" />
             <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
             <div class="grid two">
               <div class="field">
-                <label for="name">Name</label>
-                <input id="name" name="name" placeholder="Your name" autocomplete="name" required />
+                <label for="name" data-i18n="f.name">Name</label>
+                <input id="name" name="name" data-i18n-ph="f.name.ph" placeholder="Your name" autocomplete="name" required />
               </div>
               <div class="field">
-                <label for="email">Email</label>
-                <input id="email" name="email" type="email" placeholder="you@company.com" autocomplete="email" required />
+                <label for="email" data-i18n="f.email">Email</label>
+                <input id="email" name="email" type="email" data-i18n-ph="f.email.ph" placeholder="you@company.com" autocomplete="email" required />
               </div>
             </div>
             <div class="grid two">
               <div class="field">
-                <label for="company">Company</label>
-                <input id="company" name="company" placeholder="Organization" autocomplete="organization" />
+                <label for="company" data-i18n="f.company">Company</label>
+                <input id="company" name="company" data-i18n-ph="f.company.ph" placeholder="Organization" autocomplete="organization" />
               </div>
               <div class="field">
-                <label for="role">Role</label>
-                <input id="role" name="role" placeholder="Title" autocomplete="organization-title" />
+                <label for="role" data-i18n="f.role">Role</label>
+                <input id="role" name="role" data-i18n-ph="f.role.ph" placeholder="Title" autocomplete="organization-title" />
               </div>
             </div>
             <div class="field">
-              <label for="message">What would you like to achieve?</label>
-              <textarea id="message" name="message" rows="5" placeholder="e.g., Reduce inventory 20% while holding 99% service…"></textarea>
+              <label for="message" data-i18n="f.msg">What would you like to achieve?</label>
+              <textarea id="message" name="message" rows="5" data-i18n-ph="f.msg.ph" placeholder="e.g., Reduce inventory 20% while holding 99% service…"></textarea>
             </div>
-            <button class="btn btn-primary" type="submit">Send message</button>
+            <button class="btn btn-primary" type="submit" data-i18n="f.send">Send message</button>
           </form>
         </div>
       </section>
@@ -335,22 +382,25 @@
           <img src="assets/emblem.png" alt="" width="36" height="36" />
           <div>
             <strong>AGENSTRUM Labs</strong><br />
-            <span>Autonomous by design.</span>
+            <span data-i18n="foot.tag">Autonomous by design.</span>
           </div>
         </div>
         <div class="foot-links">
-          <a href="#solutions">Solutions</a>
-          <a href="#approach">Approach</a>
-          <a href="#hve">HVE</a>
-          <a href="#stack">Technology</a>
-          <a href="#contact">Contact</a>
+          <a href="#solutions" data-i18n="nav.solutions">Solutions</a>
+          <a href="#approach" data-i18n="nav.approach">Approach</a>
+          <a href="#hve" data-i18n="nav.hve">HVE</a>
+          <a href="#stack" data-i18n="nav.tech">Tech</a>
+          <a href="#contact" data-i18n="nav.contact">Contact</a>
         </div>
         <div class="foot-copy">
-          © <span id="year"></span> AGENSTRUM. All rights reserved.
+          © <span id="year"></span> AGENSTRUM. <span data-i18n="foot.rights">All rights reserved.</span>
         </div>
       </div>
+      <div class="foot-mark" aria-hidden="true">AGENSTRUM</div>
     </footer>
 
+    <script src="js/i18n.js"></script>
+    <script src="js/network.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>
